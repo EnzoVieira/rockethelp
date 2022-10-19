@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigation } from "@react-navigation/native"
 import {
   VStack,
   HStack,
@@ -22,15 +23,24 @@ export const Home = () => {
     "open"
   )
   const [orders, setOrders] = useState<IOrderProps[]>([
-    // {
-    //   id: "123",
-    //   patrimony: "29743",
-    //   when: "18/07/2022 às 10:00",
-    //   status: "open",
-    // },
+    {
+      id: "123",
+      patrimony: "29743",
+      when: "18/07/2022 às 10:00",
+      status: "open",
+    },
   ])
 
+  const navigation = useNavigation()
   const { colors } = useTheme()
+
+  const handleNewOrder = () => {
+    navigation.navigate("new")
+  }
+
+  const handleOpenDetails = (orderId: string) => {
+    navigation.navigate("details", { orderId })
+  }
 
   return (
     <VStack flex={1} pb={6} bg="gray.700">
@@ -81,7 +91,9 @@ export const Home = () => {
         <FlatList
           data={orders}
           keyExtractor={({ id }) => id}
-          renderItem={({ item }) => <Order data={item} />}
+          renderItem={({ item }) => (
+            <Order data={item} onPress={() => handleOpenDetails(item.id)} />
+          )}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 100 }}
           ListEmptyComponent={() => (
@@ -96,7 +108,7 @@ export const Home = () => {
           )}
         />
 
-        <Button title="Nova solicitação" />
+        <Button title="Nova solicitação" onPress={handleNewOrder} />
       </VStack>
     </VStack>
   )

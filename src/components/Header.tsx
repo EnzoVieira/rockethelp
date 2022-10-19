@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native"
 import { Heading, HStack, IconButton, StyledProps, useTheme } from "native-base"
 import { CaretLeft } from "phosphor-react-native"
 
@@ -6,7 +7,12 @@ interface IProps extends StyledProps {
 }
 
 export const Header = ({ title, ...rest }: IProps) => {
+  const navigation = useNavigation()
   const { colors } = useTheme()
+
+  const handleGoBack = () => {
+    navigation.goBack()
+  }
 
   return (
     <HStack
@@ -18,7 +24,10 @@ export const Header = ({ title, ...rest }: IProps) => {
       pt={12}
       {...rest}
     >
-      <IconButton icon={<CaretLeft color={colors.gray[200]} size={24} />} />
+      <IconButton
+        icon={<CaretLeft color={colors.gray[200]} size={24} />}
+        onPress={handleGoBack}
+      />
 
       <Heading
         fontFamily="heading"
