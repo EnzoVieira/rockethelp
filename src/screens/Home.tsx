@@ -67,10 +67,10 @@ export const Home = () => {
           alignItems="center"
         >
           <Heading fontFamily="heading" color="gray.100">
-            Meus chamados
+            Solicitações
           </Heading>
 
-          <Text color="gray.200">3</Text>
+          <Text color="gray.200">{orders.length}</Text>
         </HStack>
 
         <HStack space={3} mb={8}>
